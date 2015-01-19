@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
-#include "library.h"
-#include "exceptions.h"
+#include "src/library.h"
+#include "src/exceptions.h"
 
 
 int main()
