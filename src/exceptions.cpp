@@ -23,12 +23,12 @@
 
 using namespace GDS;
 
-FormatError::FormatError() noexcept
+FormatError::FormatError()
 {
     Message = "";
 }
 
-FormatError::FormatError(std::string message) noexcept
+FormatError::FormatError(std::string message)
 {
     Message = message;
 }
@@ -38,7 +38,7 @@ FormatError::~FormatError()
 
 }
 
-const char* FormatError::what() const noexcept
+const char* FormatError::what() const
 {
     std::string ret = "Format error: " + Message;
 

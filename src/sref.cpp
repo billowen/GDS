@@ -145,13 +145,13 @@ bool SRef::write(std::ofstream &out)
     writeShort(out, record_size);
     writeByte(out, EFLAGS);
     writeByte(out, Integer_2);
-    writeByte(out, Eflags);
+    writeShort(out, Eflags);
 
     record_size = 6;
     writeShort(out, record_size);
     writeByte(out, STRANS);
     writeByte(out, Integer_2);
-    writeByte(out, Strans);
+    writeShort(out, Strans);
 
     record_size = 4 + SName.size();
     if (record_size % 2 != 0)

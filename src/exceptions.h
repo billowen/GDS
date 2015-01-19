@@ -31,11 +31,11 @@ class FormatError : public std::exception {
     std::string Message;
 
 public:
-    FormatError() noexcept;
-    FormatError(std::string message) noexcept;
+    FormatError();
+    FormatError(std::string message);
     virtual ~FormatError();
 
-    virtual const char *what() const noexcept;
+    virtual const char *what() const;
     void setMessage(std::string message);
 };
 }

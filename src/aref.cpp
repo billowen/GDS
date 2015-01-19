@@ -203,13 +203,13 @@ bool ARef::write(std::ofstream &out)
     writeShort(out, record_size);
     writeByte(out, ANGLE);
     writeByte(out, Real_8);
-    writeByte(out, Angle);
+    writeDouble(out, Angle);
 
     record_size = 12;
     writeShort(out, record_size);
     writeByte(out, MAG);
     writeByte(out, Real_8);
-    writeByte(out, Mag);
+    writeDouble(out, Mag);
 
     record_size = 4;
     writeShort(out, record_size);
