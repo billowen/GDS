@@ -48,12 +48,17 @@ class Library {
     double          DBUnit_in_userunit;
 
     std::vector<Structure*> Contents;
-
+	
 public:
-    Library();
+	Library();
     ~Library();
 
     void init();
+
+	Structure *add(std::string name);
+	Structure *get(std::string name);
+	void del(std::string name);
+
 
     /*!
      * \brief Read gdsii data from file stream.

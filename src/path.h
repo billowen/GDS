@@ -55,6 +55,20 @@ public:
     Path();
     virtual ~Path();
 
+	short layer() const;
+	short dataType() const;
+	int width() const;
+	void extension(int &begin, int &end) const;
+	int pathType() const;
+	void xy(std::vector<int> &x, std::vector<int> &y) const;
+
+	void setLayer(short layer);
+	void setDataType(short data_type);
+	void setWidth(int width);
+	void setExtension(int begin, int end);
+	void setPathType(int type);
+	void setXY(std::vector<int> &x, std::vector<int> &y);
+
     virtual bool read(std::ifstream &in);
     virtual bool write(std::ofstream &out);
     virtual bool printASCII(std::ofstream &out);

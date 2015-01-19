@@ -21,16 +21,17 @@
 
 #include "exceptions.h"
 
-using namespace GDS;
+namespace GDS
+{
 
 FormatError::FormatError()
 {
-    Message = "";
+	Message = "";
 }
 
 FormatError::FormatError(std::string message)
 {
-    Message = message;
+	Message = message;
 }
 
 FormatError::~FormatError()
@@ -40,12 +41,15 @@ FormatError::~FormatError()
 
 const char* FormatError::what() const
 {
-    std::string ret = "Format error: " + Message;
+	std::string ret = "Format error: " + Message;
 
-    return ret.c_str();
+	return ret.c_str();
 }
 
 void FormatError::setMessage(std::string message)
 {
-    Message = message;
+	Message = message;
 }
+
+}
+

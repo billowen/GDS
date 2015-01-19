@@ -47,7 +47,12 @@ class Structure {
 
 public:
     Structure();
+	Structure(std::string name);
     ~Structure();
+
+	std::string name() const;
+	int size() const;
+	Element* get(int index) const;
 
     bool read(std::ifstream &in);
     bool write(std::ofstream &out);

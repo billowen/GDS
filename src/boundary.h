@@ -47,6 +47,14 @@ public:
     Boundary();
     virtual ~Boundary();
 
+	short layer() const;
+	short dataType() const;
+	void xy(std::vector<int> &x, std::vector<int> &y)const;
+
+	void setLayer(short layer);
+	void setDataType(short data_type);
+	void setXY(std::vector<int> &x, std::vector<int> &y);
+
     virtual bool read(std::ifstream &in);
     virtual bool write(std::ofstream &out);
     virtual bool printASCII(std::ofstream &out);

@@ -53,6 +53,20 @@ public:
     Text();
     virtual ~Text();
 
+	short layer() const;
+	short textType() const;
+	short presentation() const;
+	short strans() const;
+	void xy(int &x, int &y) const;
+	std::string string() const;
+
+	void setLayer(short layer);
+	void setTextType(short text_type);
+	void setPresentation(short presentation);
+	void setStrans(short strans);
+	void setXY(int x, int y);
+	void setString(std::string string);
+
     virtual bool read(std::ifstream &in);
     virtual bool write(std::ofstream &out);
     virtual bool printASCII(std::ofstream &out);

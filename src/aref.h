@@ -52,6 +52,21 @@ public:
     ARef();
     virtual ~ARef();
 
+	std::string structName() const;
+	short row() const;
+	short col() const;
+	void xy(std::vector<int> &x, std::vector<int> &y) const;
+	double angle() const;
+	double mag() const;
+	short strans() const;
+
+	void setStructName(std::string name);
+	void setRowCol(int row,  int col);
+	void setXY(std::vector<int> &x, std::vector<int> &y);
+	void setAngle(double angle);
+	void setMag(double mag);
+	void setStrans(short strans);
+
     virtual bool read(std::ifstream &in);
     virtual bool write(std::ofstream &out);
     virtual bool printASCII(std::ofstream &out);

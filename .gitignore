@@ -26,3 +26,7 @@
 *.exe
 *.out
 *.app
+
+
+# Direcoties
+build_vs/

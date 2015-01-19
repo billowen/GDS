@@ -21,16 +21,18 @@
 
 #include "elements.h"
 
-using namespace GDS;
+
+namespace GDS
+{
 
 Element::Element()
 {
-    Tag = RECORD_UNKNOWN;
+	Tag = RECORD_UNKNOWN;
 }
 
 Element::Element(Record_type tag)
 {
-    Tag = tag;
+	Tag = tag;
 }
 
 Element::~Element()
@@ -40,28 +42,31 @@ Element::~Element()
 
 std::string Element::type() const
 {
-    if (Record_name.find(Tag) == Record_name.end())
-        return "RECORD_UNKNOWN";
-    else
-        return Record_name[Tag];
+	if (Record_name.find(Tag) == Record_name.end())
+		return "RECORD_UNKNOWN";
+	else
+		return Record_name[Tag];
 }
 
 void Element::setTag(Record_type tag)
 {
-    Tag = tag;
+	Tag = tag;
 }
 
 bool Element::read(std::ifstream &in)
 {
-    return true;
+	return true;
 }
 
 bool Element::write(std::ofstream &out)
 {
-    return true;
+	return true;
 }
 
 bool Element::printASCII(std::ofstream &out)
 {
-    return true;
+	return true;
 }
+
+}
+
