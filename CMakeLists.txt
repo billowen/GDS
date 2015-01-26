@@ -5,7 +5,7 @@ add_definitions(-std=c++11)
 
 
 project (GDS)
-add_library (libGDS 
+add_library (libGDS SHARED
 	aref.cpp
 	aref.h
     boundary.cpp
