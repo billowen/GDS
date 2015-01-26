@@ -27,7 +27,7 @@
 namespace GDS
 {
 
-Path::Path() :Element(PATH)
+Path::Path(Structure* parent) :Element(PATH, parent)
 {
 	Eflags = 0;
 	Layer = -1;

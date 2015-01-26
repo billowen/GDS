@@ -27,7 +27,7 @@
 namespace GDS
 {
 
-SRef::SRef() :Element(SREF)
+SRef::SRef(Structure* parent) :Element(SREF, parent)
 {
 	Eflags = 0;
 	SName = "";

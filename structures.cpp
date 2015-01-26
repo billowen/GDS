@@ -104,6 +104,12 @@ Element* Structure::get(int index) const
 		return Contents[index];
 }
 
+void Structure::set(int index, Element* e)
+{
+	if (index < 0 || index >= Contents.size())
+		return;
+	Contents[index] = e;
+}
 
 
 bool Structure::read(std::ifstream &in)
@@ -164,7 +170,7 @@ bool Structure::read(std::ifstream &in)
 				std::string msg = ss.str();
 				throw FormatError(msg);
 			}
-			Text *e = new Text();
+			Text *e = new Text(this);
 			e->read(in);
 			Contents.push_back(e);
 			break;
@@ -180,7 +186,7 @@ bool Structure::read(std::ifstream &in)
 				std::string msg = ss.str();
 				throw FormatError(msg);
 			}
-			Boundary *e = new Boundary();
+			Boundary *e = new Boundary(this);
 			e->read(in);
 			Contents.push_back(e);
 			break;
@@ -196,7 +202,7 @@ bool Structure::read(std::ifstream &in)
 				std::string msg = ss.str();
 				throw FormatError(msg);
 			}
-			Path *e = new Path();
+			Path *e = new Path(this);
 			e->read(in);
 			Contents.push_back(e);
 			break;
@@ -212,7 +218,7 @@ bool Structure::read(std::ifstream &in)
 				std::string msg = ss.str();
 				throw FormatError(msg);
 			}
-			SRef *e = new SRef();
+			SRef *e = new SRef(this);
 			e->read(in);
 			Contents.push_back(e);
 			break;
@@ -228,7 +234,7 @@ bool Structure::read(std::ifstream &in)
 				std::string msg = ss.str();
 				throw FormatError(msg);
 			}
-			ARef *e = new ARef();
+			ARef *e = new ARef(this);
 			e->read(in);
 			Contents.push_back(e);
 			break;

@@ -54,6 +54,8 @@ public:
 	int size() const;
 	Element* get(int index) const;
 
+	void set(int index, Element* e);
+
     bool read(std::ifstream &in);
     bool write(std::ofstream &out);
     bool printASCII(std::ofstream &out);

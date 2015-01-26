@@ -49,7 +49,7 @@ class ARef : public Element {
     double              Mag;
 
 public:
-    ARef();
+    ARef(Structure* parent);
     virtual ~ARef();
 
 	std::string structName() const;

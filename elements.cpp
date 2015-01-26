@@ -20,24 +20,37 @@
  **/
 
 #include "elements.h"
+#include "structures.h"
 
 
 namespace GDS
 {
 
-Element::Element()
+Element::Element(Structure* parent)
 {
 	Tag = RECORD_UNKNOWN;
+	Parent = parent;
 }
 
-Element::Element(Record_type tag)
+Element::Element(Record_type tag, Structure* parent)
 {
 	Tag = tag;
+	Parent = parent;
 }
 
 Element::~Element()
 {
-
+	if (Parent != nullptr)
+	{
+		for (int i = 0; i < Parent->size(); i++)
+		{
+			if (Parent->get(i) == this)
+			{
+				Parent->set(i, nullptr);
+				break;
+			}
+		}
+	}
 }
 
 std::string Element::type() const

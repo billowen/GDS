@@ -27,7 +27,7 @@
 namespace GDS
 {
 
-Text::Text() :Element(TEXT)
+Text::Text(Structure* parent) :Element(TEXT, parent)
 {
 	Eflags = 0;
 	Layer = -1;

@@ -44,7 +44,7 @@ class Boundary : public Element {
     std::vector<int>    X, Y;
 
 public:
-    Boundary();
+    Boundary(Structure *parent);
     virtual ~Boundary();
 
 	short layer() const;

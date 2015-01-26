@@ -52,7 +52,7 @@ class Path : public Element {
     std::vector<int>    X, Y;
 
 public:
-    Path();
+    Path(Structure* parent);
     virtual ~Path();
 
 	short layer() const;

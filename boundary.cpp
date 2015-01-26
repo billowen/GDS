@@ -26,7 +26,7 @@
 namespace GDS
 {
 
-Boundary::Boundary() :Element(BOUNDARY)
+Boundary::Boundary(Structure* parent) :Element(BOUNDARY, parent)
 {
 	Eflags = 0;
 	Layer = -1;

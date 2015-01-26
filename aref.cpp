@@ -27,7 +27,7 @@
 namespace GDS
 {
 
-ARef::ARef() :Element(AREF)
+ARef::ARef(Structure* parent) :Element(AREF, parent)
 {
 	Eflags = 0;
 	SName = "";

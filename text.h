@@ -50,7 +50,7 @@ class Text : public Element {
     std::string         String;
 
 public:
-    Text();
+    Text(Structure* parent);
     virtual ~Text();
 
 	short layer() const;

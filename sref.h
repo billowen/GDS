@@ -46,7 +46,7 @@ class SRef : public Element {
     double              Mag;
 
 public:
-    SRef();
+    SRef(Structure *parent);
     virtual ~SRef();
 
 	std::string structName() const;

@@ -27,23 +27,25 @@
 #include <fstream>
 
 namespace GDS {
+	class Structure;
 
-class Element {
-    Record_type Tag;
+	class Element {
+		Record_type Tag;
+		Structure* Parent;
 
-public:
-    Element();
-    Element(Record_type tag);
-    virtual ~Element();
+	public:
+		Element(Structure* parent = nullptr);
+		Element(Record_type tag, Structure* parent = nullptr);
+		virtual ~Element();
 
-    std::string type() const;
-    virtual bool read(std::ifstream &in);
-    virtual bool write(std::ofstream &out);
-    virtual bool printASCII(std::ofstream &out);
+		std::string type() const;
+		virtual bool read(std::ifstream &in);
+		virtual bool write(std::ofstream &out);
+		virtual bool printASCII(std::ofstream &out);
 
-protected:
-    void setTag(Record_type tag);
-};
+	protected:
+		void setTag(Record_type tag);
+	};
 
 }
 #endif // ELEMENTS_H
