@@ -29,55 +29,67 @@
 
 namespace GDS {
 
-class Library {
-    short           Version;
-    short           Mod_year;
-    short           Mod_month;
-    short           Mod_day;
-    short           Mod_hour;
-    short           Mod_minute;
-    short           Mod_second;
-    short           Acc_year;
-    short           Acc_month;
-    short           Acc_day;
-    short           Acc_hour;
-    short           Acc_minute;
-    short           Acc_second;
-    std::string     Lib_name;
-    double          DBUnit_in_meter;
-    double          DBUnit_in_userunit;
+	class Library {
+		short           Version;
+		short           Mod_year;
+		short           Mod_month;
+		short           Mod_day;
+		short           Mod_hour;
+		short           Mod_minute;
+		short           Mod_second;
+		short           Acc_year;
+		short           Acc_month;
+		short           Acc_day;
+		short           Acc_hour;
+		short           Acc_minute;
+		short           Acc_second;
+		std::string     Lib_name;
+		double          DBUnit_in_meter;
+		double          DBUnit_in_userunit;
 
-    std::vector<Structure*> Contents;
-	
-public:
-	Library();
-    ~Library();
+		std::vector<Structure*> Contents;
 
-    void init();
+	public:
+		Library();
+		~Library();
 
-	Structure *add(std::string name);
-	Structure *get(std::string name);
-	void del(std::string name);
+		void init();
+
+		size_t size();
+		Structure* get(int index);
+		Structure* get(std::string name);
+
+		/*!
+		 * Add a new structure into library. If there is a structure existed in library which
+		 * have the same name, it will cause the failure of process.
+		 * 
+		 * \param [in] name		The name of the new structure.
+		 *
+		 * \return	The pointer to the new structure. If failed to add the new structure, the
+		 *			return value will be nullptr.
+		 */
+		Structure* add(std::string name);
+		void del(std::string name);
 
 
-    /*!
-     * \brief Read gdsii data from file stream.
-     *
-     * The call will throw some exceptions.
-     * \param in
-     * \return
-     */
-    bool read(std::ifstream &in);
-    /*!
-     * \brief Write gdsii data to file stream.
-     *
-     * The call will throw some exceptions.
-     * \param out
-     * \return
-     */
-    bool write(std::ofstream &out);
-    bool printASCII(std::ofstream &out);
-};
+		/*!
+		 * \brief Read gdsii data from file stream.
+		 *
+		 * The call will throw some exceptions.
+		 * \param in
+		 * \return
+		 */
+		bool read(std::ifstream &in);
+		/*!
+		 * \brief Write gdsii data to file stream.
+		 *
+		 * The call will throw some exceptions.
+		 * \param out
+		 * \return
+		 */
+		bool write(std::ofstream &out);
+		bool printASCII(std::ofstream &out);
+	};
 }
 
 #endif // LIBRARY_H

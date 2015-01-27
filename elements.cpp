@@ -26,60 +26,60 @@
 namespace GDS
 {
 
-Element::Element(Structure* parent)
-{
-	Tag = RECORD_UNKNOWN;
-	Parent = parent;
-}
-
-Element::Element(Record_type tag, Structure* parent)
-{
-	Tag = tag;
-	Parent = parent;
-}
-
-Element::~Element()
-{
-	if (Parent != nullptr)
+	Element::Element(Structure* parent)
 	{
-		for (int i = 0; i < Parent->size(); i++)
+		Tag = RECORD_UNKNOWN;
+		Parent = parent;
+	}
+
+	Element::Element(Record_type tag, Structure* parent)
+	{
+		Tag = tag;
+		Parent = parent;
+	}
+
+	Element::~Element()
+	{
+		if (Parent != nullptr)
 		{
-			if (Parent->get(i) == this)
+			for (int i = 0; i < Parent->size(); i++)
 			{
-				Parent->set(i, nullptr);
-				break;
+				if (Parent->get(i) == this)
+				{
+					Parent->set(i, nullptr);
+					break;
+				}
 			}
 		}
 	}
-}
 
-std::string Element::type() const
-{
-	if (Record_name.find(Tag) == Record_name.end())
-		return "RECORD_UNKNOWN";
-	else
-		return Record_name[Tag];
-}
+	std::string Element::type() const
+	{
+		if (Record_name.find(Tag) == Record_name.end())
+			return "RECORD_UNKNOWN";
+		else
+			return Record_name[Tag];
+	}
 
-void Element::setTag(Record_type tag)
-{
-	Tag = tag;
-}
+	void Element::setTag(Record_type tag)
+	{
+		Tag = tag;
+	}
 
-bool Element::read(std::ifstream &in)
-{
-	return true;
-}
+	bool Element::read(std::ifstream &in)
+	{
+		return true;
+	}
 
-bool Element::write(std::ofstream &out)
-{
-	return true;
-}
+	bool Element::write(std::ofstream &out)
+	{
+		return true;
+	}
 
-bool Element::printASCII(std::ofstream &out)
-{
-	return true;
-}
+	bool Element::printASCII(std::ofstream &out)
+	{
+		return true;
+	}
 
 }
 

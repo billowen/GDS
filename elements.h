@@ -38,6 +38,7 @@ namespace GDS {
 		Element(Record_type tag, Structure* parent = nullptr);
 		virtual ~Element();
 
+		Record_type tag() const;
 		std::string type() const;
 		virtual bool read(std::ifstream &in);
 		virtual bool write(std::ofstream &out);

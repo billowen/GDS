@@ -27,6 +27,7 @@ add_library (libGDS
     text.cpp
 	text.h
     tags.h
+	gadgets.cpp gadgets.h
 )
 
 target_include_directories(libGDS PUBLIC ${CMAKE_SOURCE_DIR})

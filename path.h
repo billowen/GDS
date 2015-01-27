@@ -25,54 +25,54 @@
 
 namespace GDS {
 
-/*!
- * \brief Class for 'PATH' GDSII element
- *
- * GDS syntax:
- *  PATH
- *  [EFLAGS]
- *  [PLEX]
- *  LAYER
- *  DATATYPE
- *  [PATHTYPE]
- *  [WIDTH]
- *  [BGNEXTN]
- *  [ENDEXTN]
- *  XY
- *  ENDEL
- */
-class Path : public Element {
-    short               Eflags;         //< 2 bytes of bit flags. Not support yet.
-    short               Layer;
-    short               Data_type;
-    int                 Width;
-    int                 Begin_extn;
-    int                 End_extn;
-    short               Path_type;
-    std::vector<int>    X, Y;
+	/*!
+	 * \brief Class for 'PATH' GDSII element
+	 *
+	 * GDS syntax:
+	 *  PATH
+	 *  [EFLAGS]
+	 *  [PLEX]
+	 *  LAYER
+	 *  DATATYPE
+	 *  [PATHTYPE]
+	 *  [WIDTH]
+	 *  [BGNEXTN]
+	 *  [ENDEXTN]
+	 *  XY
+	 *  ENDEL
+	 */
+	class Path : public Element {
+		short               Eflags;         //< 2 bytes of bit flags. Not support yet.
+		short               Layer;
+		short               Data_type;
+		int                 Width;
+		int                 Begin_extn;
+		int                 End_extn;
+		short               Path_type;
+		std::vector<int>    X, Y;
 
-public:
-    Path(Structure* parent);
-    virtual ~Path();
+	public:
+		Path(Structure* parent);
+		virtual ~Path();
 
-	short layer() const;
-	short dataType() const;
-	int width() const;
-	void extension(int &begin, int &end) const;
-	int pathType() const;
-	void xy(std::vector<int> &x, std::vector<int> &y) const;
+		short layer() const;
+		short dataType() const;
+		int width() const;
+		void extension(int &begin, int &end) const;
+		int pathType() const;
+		void xy(std::vector<int> &x, std::vector<int> &y) const;
 
-	void setLayer(short layer);
-	void setDataType(short data_type);
-	void setWidth(int width);
-	void setExtension(int begin, int end);
-	void setPathType(int type);
-	void setXY(std::vector<int> &x, std::vector<int> &y);
+		void setLayer(short layer);
+		void setDataType(short data_type);
+		void setWidth(int width);
+		void setExtension(int begin, int end);
+		void setPathType(int type);
+		void setXY(std::vector<int> &x, std::vector<int> &y);
 
-    virtual bool read(std::ifstream &in);
-    virtual bool write(std::ofstream &out);
-    virtual bool printASCII(std::ofstream &out);
-};
+		virtual bool read(std::ifstream &in);
+		virtual bool write(std::ofstream &out);
+		virtual bool printASCII(std::ofstream &out);
+	};
 
 }
 #endif // PATH_H

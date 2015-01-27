@@ -25,52 +25,52 @@
 
 namespace GDS {
 
-/*!
- * \brief Class for 'Text' GDSII element
- *
- * GDS syntax:
- *  TEXT
- *  [EFLAGS]
- *  [PLEX]
- *  LAYER
- *  TEXTLAYER
- *  [PRESENTATION]
- *  [STRANS]
- *  XY
- *  STRING
- *  ENDEL
- */
-class Text : public Element {
-    short               Eflags;         //< 2 bytes of bit flags. Not support yet.
-    short               Layer;
-    short               Text_type;
-    short               Presentation;
-    short               Strans;
-    int                 X, Y;
-    std::string         String;
+	/*!
+	 * \brief Class for 'Text' GDSII element
+	 *
+	 * GDS syntax:
+	 *  TEXT
+	 *  [EFLAGS]
+	 *  [PLEX]
+	 *  LAYER
+	 *  TEXTLAYER
+	 *  [PRESENTATION]
+	 *  [STRANS]
+	 *  XY
+	 *  STRING
+	 *  ENDEL
+	 */
+	class Text : public Element {
+		short               Eflags;         //< 2 bytes of bit flags. Not support yet.
+		short               Layer;
+		short               Text_type;
+		short               Presentation;
+		short               Strans;
+		int                 X, Y;
+		std::string         String;
 
-public:
-    Text(Structure* parent);
-    virtual ~Text();
+	public:
+		Text(Structure* parent);
+		virtual ~Text();
 
-	short layer() const;
-	short textType() const;
-	short presentation() const;
-	short strans() const;
-	void xy(int &x, int &y) const;
-	std::string string() const;
+		short layer() const;
+		short textType() const;
+		short presentation() const;
+		short strans() const;
+		void xy(int &x, int &y) const;
+		std::string string() const;
 
-	void setLayer(short layer);
-	void setTextType(short text_type);
-	void setPresentation(short presentation);
-	void setStrans(short strans);
-	void setXY(int x, int y);
-	void setString(std::string string);
+		void setLayer(short layer);
+		void setTextType(short text_type);
+		void setPresentation(short presentation);
+		void setStrans(short strans);
+		void setXY(int x, int y);
+		void setString(std::string string);
 
-    virtual bool read(std::ifstream &in);
-    virtual bool write(std::ofstream &out);
-    virtual bool printASCII(std::ofstream &out);
-};
+		virtual bool read(std::ifstream &in);
+		virtual bool write(std::ofstream &out);
+		virtual bool printASCII(std::ofstream &out);
+	};
 
 }
 

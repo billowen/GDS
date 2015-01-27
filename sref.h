@@ -24,47 +24,52 @@
 #include "elements.h"
 
 namespace GDS {
+	class Structure;
 
-/*!
- * \brief Class for 'SREF' GDSII element
- *
- * GDS syntax:
- *  SREF
- *  [EFLAGS]
- *  [PLEX]
- *  SNAME
- *  [STRANS]
- *  XY
- *  ENDEL
- */
-class SRef : public Element {
-    short               Eflags;
-    std::string         SName;
-    short               Strans;
-    int                 X, Y;
-    double              Angle;
-    double              Mag;
+	/*!
+	 * \brief Class for 'SREF' GDSII element
+	 *
+	 * GDS syntax:
+	 *  SREF
+	 *  [EFLAGS]
+	 *  [PLEX]
+	 *  SNAME
+	 *  [STRANS]
+	 *  XY
+	 *  ENDEL
+	 */
+	class SRef : public Element {
+		short               Eflags;
+		std::string         SName;
+		short               Strans;
+		int                 X, Y;
+		double              Angle;
+		double              Mag;
 
-public:
-    SRef(Structure *parent);
-    virtual ~SRef();
+		Structure*			Reference;
 
-	std::string structName() const;
-	void xy(int &x, int &y) const;
-	double angle() const;
-	double mag() const;
-	short strans() const;
+	public:
+		SRef(Structure *parent);
+		virtual ~SRef();
 
-	void setStructName(std::string name);
-	void setXY(int x, int y);
-	void setAngle(double angle);
-	void setMag(double mag);
-	void setStrans(short strans);
+		std::string structName() const;
+		void xy(int &x, int &y) const;
+		double angle() const;
+		double mag() const;
+		short strans() const;
+		Structure* reference() const;
 
-    virtual bool read(std::ifstream &in);
-    virtual bool write(std::ofstream &out);
-    virtual bool printASCII(std::ofstream &out);
-};
+		void setStructName(std::string name);
+		void setXY(int x, int y);
+		void setAngle(double angle);
+		void setMag(double mag);
+		void setStrans(short strans);
+		void setReference(Structure* ref);
+
+		virtual bool read(std::ifstream &in);
+		virtual bool write(std::ofstream &out);
+		virtual bool printASCII(std::ofstream &out);
+	};
 
 }
 
