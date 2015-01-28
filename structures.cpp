@@ -83,7 +83,22 @@ namespace GDS
 				e = nullptr;
 			}
 		}
+		for (Element* e : Referred_list)
+		{
+			if (e != nullptr)
+			{
+				if (auto ptr = dynamic_cast<ARef*>(e))
+				{
+					ptr->setReference(nullptr);
+				}
+				else if (auto ptr = dynamic_cast<SRef*>(e))
+				{
+					ptr->setReference(nullptr);
+				}
+			}
+		}
 		Contents.clear();
+		Referred_list.clear();
 	}
 
 	std::string Structure::name() const
@@ -109,6 +124,11 @@ namespace GDS
 			return Contents[index];
 	}
 
+	std::vector<Element*> Structure::getReferredList()
+	{
+		return Referred_list;
+	}
+
 	void Structure::set(int index, Element* e)
 	{
 		if (index < 0 || index >= Contents.size())
@@ -125,6 +145,13 @@ namespace GDS
 	void Structure::clearReferredList()
 	{
 		Referred_list.clear();
+	}
+
+	void Structure::delReferred(Element* referred)
+	{
+		auto iter = find(Referred_list.begin(), Referred_list.end(), referred);
+		if (iter != Referred_list.end())
+			Referred_list.erase(iter);
 	}
 
 	bool Structure::read(std::ifstream &in)

@@ -58,7 +58,6 @@ namespace GDS {
 		size_t size();
 		Structure* get(int index);
 		Structure* get(std::string name);
-
 		/*!
 		 * Add a new structure into library. If there is a structure existed in library which
 		 * have the same name, it will cause the failure of process.
@@ -69,7 +68,13 @@ namespace GDS {
 		 *			return value will be nullptr.
 		 */
 		Structure* add(std::string name);
-		void del(std::string name);
+		/*!
+		 * Delete a structure in the library.
+		 *
+		 * \param [in] name			Name of structure.
+		 * \param [in] de_referred	Wether to delete the SREF/AREF or not.
+		 */
+		void del(std::string name, bool del_referred = false);
 
 
 		/*!

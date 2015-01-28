@@ -40,7 +40,11 @@ namespace GDS
 
 	SRef::~SRef()
 	{
-
+		// delete the link between current sref and the structure
+		if (Reference != nullptr)
+		{
+			Reference->delReferred(this);
+		}
 	}
 
 	std::string SRef::structName() const

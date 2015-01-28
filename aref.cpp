@@ -42,7 +42,11 @@ namespace GDS
 
 	ARef::~ARef()
 	{
-
+		// delete the link between current aref and the structure
+		if (Reference != nullptr)
+		{
+			Reference->delReferred(this);
+		}
 	}
 
 	std::string ARef::structName() const

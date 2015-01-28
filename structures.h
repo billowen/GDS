@@ -55,10 +55,12 @@ namespace GDS {
 		std::string name() const;
 		size_t size();
 		Element* get(int index) const;
+		std::vector<Element*> getReferredList();
 
 		void set(int index, Element* e);
 		void addReferred(Element* referred);
 		void clearReferredList();
+		void delReferred(Element* referred);
 
 		bool read(std::ifstream &in);
 		bool write(std::ofstream &out);

@@ -19,12 +19,16 @@
  * along with GDSII. If not, see <http://www.gnu.org/licenses/>.
  **/
 
+#include <assert.h>
 #include "library.h"
 #include "exceptions.h"
 #include "tags.h"
 #include "gdsio.h"
 #include <sstream>
 #include <ctime>
+#include "elements.h"
+#include "aref.h"
+#include "sref.h"
 
 namespace GDS {
 
@@ -130,6 +134,36 @@ namespace GDS {
 			}
 		}
 		return nullptr;
+	}
+
+	void Library::del(std::string name, bool del_referred)
+	{
+		Structure* node = get(name);
+		if (node == nullptr)
+			return;
+
+		for (size_t i = 0; i < size(); i++)
+		{
+			Structure* node = Contents[i];
+			assert(node != nullptr);
+			if (node == nullptr)
+				continue;
+			if (node->name() == name)
+			{
+				if (del_referred)
+				{
+					std::vector<Element*> referred_list = node->getReferredList();
+					for (auto ptr : referred_list)
+					{
+						delete ptr;
+					}
+					node->clearReferredList();
+				}
+				delete node;
+				Contents.erase(Contents.begin() + i);
+				break;
+			}
+		}
 	}
 
 	bool Library::read(std::ifstream &in)
