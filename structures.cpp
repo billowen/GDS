@@ -129,6 +129,26 @@ namespace GDS
 		return Referred_list;
 	}
 
+	bool Structure::boundaryRect(int& x1, int& y1, int& x2, int& y2) const
+	{
+		bool flag = false;
+		x1 = y1 = INT_MAX;
+		x2 = y2 = INT_MIN;
+		for (auto e : Contents)
+		{
+			int tx1, ty1, tx2, ty2;
+			if (e->tag() != TEXT && e->boundaryRect(tx1, ty1, tx2, ty2))
+			{
+				flag = true;
+				x1 = (tx1 < x1) ? tx1 : x1;
+				y1 = (ty1 < y1) ? ty1 : y1;
+				x2 = (tx2 > x2) ? tx2 : x2;
+				y2 = (ty2 > y2) ? ty2 : y2;
+			}
+		}
+		return flag;
+	}
+
 	void Structure::set(int index, Element* e)
 	{
 		if (index < 0 || index >= Contents.size())

@@ -65,6 +65,7 @@ namespace GDS {
 		double mag() const;
 		short strans() const;
 		Structure* reference() const;
+		virtual bool boundaryRect(int& x1, int& y1, int& x2, int& y2) const;
 
 		void setStructName(std::string name);
 		void setRowCol(int row,  int col);

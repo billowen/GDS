@@ -56,6 +56,7 @@ namespace GDS {
 		size_t size();
 		Element* get(int index) const;
 		std::vector<Element*> getReferredList();
+		bool boundaryRect(int& x1, int& y1, int& x2, int& y2) const;
 
 		void set(int index, Element* e);
 		void addReferred(Element* referred);

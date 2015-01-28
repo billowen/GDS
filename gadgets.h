@@ -26,6 +26,8 @@ namespace GDS
 {
 	
 	class Library;
+	class Structure;
+	class Element;
 	
 	void buildCellLinks(Library* lib);
 }

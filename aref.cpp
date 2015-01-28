@@ -19,6 +19,7 @@
  * along with GDSII. If not, see <http://www.gnu.org/licenses/>.
  **/
 
+#include <assert.h>
 #include "aref.h"
 #include "exceptions.h"
 #include <sstream>
@@ -88,6 +89,15 @@ namespace GDS
 	Structure* ARef::reference() const
 	{
 		return Reference;
+	}
+
+	bool ARef::boundaryRect(int& x1, int& y1, int& x2, int& y2) const
+	{
+		assert(Reference != nullptr);
+		if (Reference != nullptr)
+			return Reference->boundaryRect(x1, y1, x2, y2);
+		else
+			return false;
 	}
 
 	void ARef::setStructName(std::string name)

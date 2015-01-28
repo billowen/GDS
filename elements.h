@@ -40,6 +40,14 @@ namespace GDS {
 
 		Record_type tag() const;
 		std::string type() const;
+		/*!
+		 * Get a rect which can enclose the element.
+		 *
+		 * \param [out] x1,y1,x2,y2	
+		 * \return		Return false if can not get a valid rect.
+		 */
+		virtual bool boundaryRect(int& x1, int& y1, int& x2, int& y2) const;
+
 		virtual bool read(std::ifstream &in);
 		virtual bool write(std::ofstream &out);
 		virtual bool printASCII(std::ofstream &out);

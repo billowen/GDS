@@ -61,6 +61,16 @@ namespace GDS
 			return Record_name[Tag];
 	}
 
+	Record_type Element::tag() const
+	{
+		return Tag;
+	}
+
+	bool Element::boundaryRect(int& x1, int& y1, int& x2, int& y2) const
+	{
+		return false;
+	}
+
 	void Element::setTag(Record_type tag)
 	{
 		Tag = tag;
