@@ -53,7 +53,7 @@ namespace GDS {
 		Structure*			Reference;
 
 	public:
-		ARef(Structure* parent);
+		ARef(Structure* parent = nullptr);
 		virtual ~ARef();
 
 

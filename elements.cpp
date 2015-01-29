@@ -66,6 +66,16 @@ namespace GDS
 		return Tag;
 	}
 
+	Structure* Element::parent()
+	{
+		return Parent;
+	}
+
+	void Element::setParent(Structure* parent)
+	{
+		Parent = parent;
+	}
+
 	bool Element::boundaryRect(int& x1, int& y1, int& x2, int& y2) const
 	{
 		return false;

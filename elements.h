@@ -40,6 +40,7 @@ namespace GDS {
 
 		Record_type tag() const;
 		std::string type() const;
+		Structure* parent();
 		/*!
 		 * Get a rect which can enclose the element.
 		 *
@@ -47,6 +48,8 @@ namespace GDS {
 		 * \return		Return false if can not get a valid rect.
 		 */
 		virtual bool boundaryRect(int& x1, int& y1, int& x2, int& y2) const;
+
+		void setParent(Structure* parent);
 
 		virtual bool read(std::ifstream &in);
 		virtual bool write(std::ofstream &out);

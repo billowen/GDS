@@ -28,19 +28,44 @@
 
 namespace GDS
 {
-	class LayerNode
+	class Stipple
 	{
-		int Number;
-		int Data_type;
+		std::string							Name;
+		std::vector<std::vector<bool > >	Bitmap;
 
 	public:
+		Stipple();
+		Stipple(std::string name);
+		~Stipple();
+
+		std::string name() const;
+		int row() const;
+		int col() const;
+		bool bit(int row, int col);
+
+	};
+	class LayerNode
+	{
+		int			Number;
+		int			Data_type;
+		int			Color_r;
+		int			Color_g;
+		int			Color_b;
+		std::string Stipple;
+
+	public:
+		LayerNode();
 		LayerNode(int num, int dt);
+
 
 		int number() const;
 		int dataType() const;
+		void color(int& r, int& g, int& b) const;
+		std::string stipple() const;
 
 		void setNumber(int num);
 		void setDataType(int dt);
+		void setColor(int r, int g, int b);
 
 	};
 
@@ -49,13 +74,20 @@ namespace GDS
 	public:
 		static Techfile* getInstance();
 
+		void clear();
+
+		bool haveLayer(int num, int dt) const;
 		bool getLayer(std::string name, LayerNode& layer);
 		bool getLayer(int num, int dt, LayerNode& layer);
+		bool getStipple(std::string name, Stipple& stipple);
+
+		bool addLayer(int num, int dt);
 
 	private:
 		Techfile();
 		
 		std::map<std::string, LayerNode> Layers;
+		std::vector<Stipple> Stipples;
 	};
 }
 

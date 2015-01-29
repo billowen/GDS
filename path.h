@@ -52,7 +52,7 @@ namespace GDS {
 		std::vector<int>    X, Y;
 
 	public:
-		Path(Structure* parent);
+		Path(Structure* parent = nullptr);
 		virtual ~Path();
 
 		short layer() const;

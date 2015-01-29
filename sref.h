@@ -49,7 +49,7 @@ namespace GDS {
 		Structure*			Reference;
 
 	public:
-		SRef(Structure *parent);
+		SRef(Structure *parent = nullptr);
 		virtual ~SRef();
 
 		std::string structName() const;

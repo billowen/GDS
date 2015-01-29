@@ -23,8 +23,12 @@
 #include "library.h"
 #include "structures.h"
 #include "elements.h"
+#include "boundary.h"
+#include "path.h"
+#include "text.h"
 #include "sref.h"
 #include "aref.h"
+#include "techfile.h"
 
 namespace GDS
 {
@@ -81,6 +85,62 @@ namespace GDS
 					break;
 				}
 
+			}
+		}
+	}
+
+	void collectLayers(Library *lib, Techfile *techfile)
+	{
+		assert(lib != nullptr && techfile != nullptr);
+		if (lib == nullptr || techfile == nullptr)
+			return;
+
+		techfile->clear();
+		for (size_t i = 0; i < lib->size(); i++)
+		{
+			Structure* structure_node = lib->get(i);
+			if (structure_node == nullptr)
+				continue;
+			for (size_t j = 0; j < structure_node->size(); j++)
+			{
+				Element* e = structure_node->get(j);
+				if (e == nullptr)
+					continue;
+				int layer = -1, dt = -1;
+				switch (e->tag())
+				{
+				case BOUNDARY:
+					if (Boundary* node = dynamic_cast<Boundary*>(e))
+					{
+						layer = node->layer();
+						dt = node->dataType();
+					}
+					break;
+				case PATH:
+					if (Path* node = dynamic_cast<Path*>(e))
+					{
+						layer = node->layer();
+						dt = node->dataType();
+					}
+					break;
+				case TEXT:
+					if (Text* node = dynamic_cast<Text*>(e))
+					{
+						layer = node->layer();
+						dt = node->textType();
+					}
+					break;
+				default:
+					break;
+				}
+
+				if (layer >= 0 && dt >= 0)
+				{
+					if (!techfile->haveLayer(layer, dt))
+					{
+						techfile->addLayer(layer, dt);
+					}
+				}
 			}
 		}
 	}

@@ -33,8 +33,6 @@ add_library (libGDS
 
 target_include_directories(libGDS PUBLIC ${CMAKE_SOURCE_DIR})
 
-add_subdirectory(test)
-
 
 
 

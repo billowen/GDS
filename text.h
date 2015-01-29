@@ -59,7 +59,7 @@ namespace GDS {
 		short strans() const;
 		void xy(int &x, int &y) const;
 		std::string string() const;
-		virtual bool boundaryRect(int& x1, int& y1, int& x2, int& y2) const;
+		//virtual bool boundaryRect(int& x1, int& y1, int& x2, int& y2) const;
 
 		void setLayer(short layer);
 		void setTextType(short text_type);

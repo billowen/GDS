@@ -149,6 +149,19 @@ namespace GDS
 		return flag;
 	}
 
+	void Structure::add(Element* e)
+	{
+		if (e == nullptr)
+			return;
+		if (find(Contents.begin(), Contents.end(), e) == Contents.end())
+		{
+			e->setParent(this);
+			Contents.push_back(e);
+			
+		}
+			
+	}
+
 	void Structure::set(int index, Element* e)
 	{
 		if (index < 0 || index >= Contents.size())

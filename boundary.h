@@ -44,7 +44,7 @@ namespace GDS {
 		std::vector<int>    X, Y;
 
 	public:
-		Boundary(Structure *parent);
+		Boundary(Structure *parent = nullptr);
 		virtual ~Boundary();
 
 		short layer() const;
