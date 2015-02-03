@@ -32,63 +32,6 @@
 
 namespace GDS
 {
-	void buildCellLinks(Library* lib)
-	{
-		if (lib == nullptr)
-			return;
-
-		for (size_t i = 0; i < lib->size(); i++)
-		{
-			Structure* node = lib->get(i);
-			if (node == nullptr)
-				continue;
-			node->clearReferredList();
-		}
-
-		for (size_t i = 0; i < lib->size(); i++)
-		{
-			Structure* node = lib->get(i);
-			if (node == nullptr)
-				continue;
-			for (size_t j = 0; j < node->size(); j++)
-			{
-				Element* e = node->get(j);
-				if (e == nullptr)
-					continue;
-				switch (e->tag())
-				{
-				case SREF:
-					if (SRef* sref = dynamic_cast<SRef*>(e))
-					{
-						std::string ref_name = sref->structName();
-						Structure* reference = lib->get(ref_name);
-						if (reference != nullptr)
-						{
-							sref->setReference(reference);
-							reference->addReferred(sref);
-						}
-					}
-					break;
-				case AREF:
-					if (ARef* aref = dynamic_cast<ARef*>(e))
-					{
-						std::string ref_name = aref->structName();
-						Structure* reference = lib->get(ref_name);
-						if (reference != nullptr)
-						{
-							aref->setReference(reference);
-							reference->addReferred(aref);
-						}
-					}
-					break;
-				default:
-					break;
-				}
-
-			}
-		}
-	}
-
 	void collectLayers(Library *lib, Techfile *techfile)
 	{
 		assert(lib != nullptr && techfile != nullptr);

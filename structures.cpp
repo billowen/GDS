@@ -19,6 +19,8 @@
  * along with GDSII. If not, see <http://www.gnu.org/licenses/>.
  **/
 
+#include <limits>
+#include <algorithm>
 #include <sstream>
 #include "structures.h"
 #include "aref.h"
@@ -83,22 +85,7 @@ namespace GDS
 				e = nullptr;
 			}
 		}
-		for (Element* e : Referred_list)
-		{
-			if (e != nullptr)
-			{
-				if (auto ptr = dynamic_cast<ARef*>(e))
-				{
-					ptr->setReference(nullptr);
-				}
-				else if (auto ptr = dynamic_cast<SRef*>(e))
-				{
-					ptr->setReference(nullptr);
-				}
-			}
-		}
 		Contents.clear();
-		Referred_list.clear();
 	}
 
 	std::string Structure::name() const
@@ -124,20 +111,15 @@ namespace GDS
 			return Contents[index];
 	}
 
-	std::vector<Element*> Structure::getReferredList()
-	{
-		return Referred_list;
-	}
-
-	bool Structure::boundaryRect(int& x1, int& y1, int& x2, int& y2) const
+	bool Structure::boundingRect(int& x1, int& y1, int& x2, int& y2) const
 	{
 		bool flag = false;
-		x1 = y1 = INT_MAX;
-		x2 = y2 = INT_MIN;
+		x1 = y1 = std::numeric_limits<int>::max();
+		x2 = y2 = std::numeric_limits<int>::min();
 		for (auto e : Contents)
 		{
 			int tx1, ty1, tx2, ty2;
-			if (e->tag() != TEXT && e->boundaryRect(tx1, ty1, tx2, ty2))
+			if (e->tag() != TEXT && e->boundingRect(tx1, ty1, tx2, ty2))
 			{
 				flag = true;
 				x1 = (tx1 < x1) ? tx1 : x1;
@@ -167,24 +149,6 @@ namespace GDS
 		if (index < 0 || index >= Contents.size())
 			return;
 		Contents[index] = e;
-	}
-
-	void Structure::addReferred(Element* referred)
-	{
-		if (find(Referred_list.begin(), Referred_list.end(), referred) == Referred_list.end())
-			Referred_list.push_back(referred);
-	}
-
-	void Structure::clearReferredList()
-	{
-		Referred_list.clear();
-	}
-
-	void Structure::delReferred(Element* referred)
-	{
-		auto iter = find(Referred_list.begin(), Referred_list.end(), referred);
-		if (iter != Referred_list.end())
-			Referred_list.erase(iter);
 	}
 
 	bool Structure::read(std::ifstream &in)

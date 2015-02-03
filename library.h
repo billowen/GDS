@@ -49,9 +49,11 @@ namespace GDS {
 
 		std::vector<Structure*> Contents;
 
-	public:
 		Library();
+	public:
 		~Library();
+        
+        static Library* getInstance();
 
 		void init();
 

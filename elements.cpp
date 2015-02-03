@@ -76,7 +76,7 @@ namespace GDS
 		Parent = parent;
 	}
 
-	bool Element::boundaryRect(int& x1, int& y1, int& x2, int& y2) const
+	bool Element::boundingRect(int& x1, int& y1, int& x2, int& y2) const
 	{
 		return false;
 	}

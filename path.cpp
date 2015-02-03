@@ -23,6 +23,7 @@
 #include "path.h"
 #include "exceptions.h"
 #include <sstream>
+#include <algorithm>
 #include "gdsio.h"
 
 namespace GDS
@@ -76,14 +77,14 @@ namespace GDS
 		y = Y;
 	}
 
-	bool Path::boundaryRect(int& x1, int& y1, int& x2, int& y2) const
+	bool Path::boundingRect(int& x1, int& y1, int& x2, int& y2) const
 	{
 		assert(X.size() >= 2 && X.size() == Y.size() && Width > 0);
 		
 		if (X.size() >= 2 && X.size() == Y.size() && Width > 0)
 		{
-			x1 = y1 = INT_MAX;
-			x2 = y2 = INT_MIN;
+			x1 = y1 = std::numeric_limits<int>::max();
+			x2 = y2 = std::numeric_limits<int>::min();
 			for (int i = 0; i < X.size(); i++)
 			{
 				x1 = (X[i] < x1) ? X[i] : x1;

@@ -35,7 +35,7 @@ public:
     FormatError(std::string message);
     virtual ~FormatError();
 
-    virtual const char *what() const;
+    virtual const char *what() const noexcept;
     void setMessage(std::string message);
 };
 }

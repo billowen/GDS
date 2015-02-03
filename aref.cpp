@@ -25,6 +25,7 @@
 #include <sstream>
 #include "gdsio.h"
 #include "structures.h"
+#include "library.h"
 
 namespace GDS
 {
@@ -38,16 +39,10 @@ namespace GDS
 		Col = 0;
 		Angle = 0;
 		Mag = 1;
-		Reference = nullptr;
 	}
 
 	ARef::~ARef()
 	{
-		// delete the link between current aref and the structure
-		if (Reference != nullptr)
-		{
-			Reference->delReferred(this);
-		}
 	}
 
 	std::string ARef::structName() const
@@ -86,18 +81,14 @@ namespace GDS
 		return Strans;
 	}
 
-	Structure* ARef::reference() const
+	bool ARef::boundingRect(int& x1, int& y1, int& x2, int& y2) const
 	{
-		return Reference;
-	}
-
-	bool ARef::boundaryRect(int& x1, int& y1, int& x2, int& y2) const
-	{
-		assert(Reference != nullptr);
-		if (Reference != nullptr)
-			return Reference->boundaryRect(x1, y1, x2, y2);
-		else
-			return false;
+        Library* lib = Library::getInstance();
+        Structure* reference = lib->get(structName());
+        if (reference == nullptr)
+            return false;
+        
+        return reference->boundingRect(x1, y1, x2, y2);
 	}
 
 	void ARef::setStructName(std::string name)
@@ -130,11 +121,6 @@ namespace GDS
 	void ARef::setStrans(short strans)
 	{
 		Strans = strans;
-	}
-
-	void ARef::setReference(Structure* ref)
-	{
-		Reference = ref;
 	}
 
 	bool ARef::read(std::ifstream &in)

@@ -39,7 +39,7 @@ FormatError::~FormatError()
 
 }
 
-const char* FormatError::what() const
+const char* FormatError::what() const noexcept
 {
 	std::string ret = "Format error: " + Message;
 

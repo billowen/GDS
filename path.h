@@ -61,7 +61,7 @@ namespace GDS {
 		void extension(int &begin, int &end) const;
 		int pathType() const;
 		void xy(std::vector<int> &x, std::vector<int> &y) const;
-		virtual bool boundaryRect(int& x1, int& y1, int& x2, int& y2) const;
+		virtual bool boundingRect(int& x1, int& y1, int& x2, int& y2) const;
 
 		void setLayer(short layer);
 		void setDataType(short data_type);

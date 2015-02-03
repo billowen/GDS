@@ -25,8 +25,6 @@
 
 namespace GDS {
 
-	class Structure;
-
 	/*!
 	 * \brief Class for 'AREF' GDSII element
 	 *
@@ -50,12 +48,9 @@ namespace GDS {
 		double              Angle;
 		double              Mag;
 
-		Structure*			Reference;
-
 	public:
 		ARef(Structure* parent = nullptr);
 		virtual ~ARef();
-
 
 		std::string structName() const;
 		short row() const;
@@ -64,8 +59,7 @@ namespace GDS {
 		double angle() const;
 		double mag() const;
 		short strans() const;
-		Structure* reference() const;
-		virtual bool boundaryRect(int& x1, int& y1, int& x2, int& y2) const;
+		virtual bool boundingRect(int& x1, int& y1, int& x2, int& y2) const;
 
 		void setStructName(std::string name);
 		void setRowCol(int row,  int col);
@@ -73,7 +67,6 @@ namespace GDS {
 		void setAngle(double angle);
 		void setMag(double mag);
 		void setStrans(short strans);
-		void setReference(Structure* ref);
 
 		virtual bool read(std::ifstream &in);
 		virtual bool write(std::ofstream &out);

@@ -50,6 +50,12 @@ namespace GDS {
 		Contents.clear();
 	}
 
+    Library* Library::getInstance()
+    {
+        static Library instance;
+        return &instance;
+    }
+
 	void Library::init()
 	{
 		Lib_name = "";

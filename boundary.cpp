@@ -19,6 +19,7 @@
  * along with GDSII. If not, see <http://www.gnu.org/licenses/>.
  **/
 
+#include <limits>
 #include <assert.h>
 #include "boundary.h"
 #include "exceptions.h"
@@ -56,13 +57,13 @@ namespace GDS
 		y = Y;
 	}
 
-	bool Boundary::boundaryRect(int& x1, int& y1, int& x2, int& y2) const
+	bool Boundary::boundingRect(int& x1, int& y1, int& x2, int& y2) const
 	{
 		assert(X.size() > 3 && X.size() == Y.size());
 		if (X.size() > 3 && X.size() == Y.size())
 		{
-			x1 = y1 = INT_MAX;
-			x2 = y2 = INT_MIN;
+			x1 = y1 = std::numeric_limits<int>::max();
+			x2 = y2 = std::numeric_limits<int>::min();
 			for (int i = 0; i < X.size(); i++)
 			{
 				x1 = (X[i] < x1) ? X[i] : x1;

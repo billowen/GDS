@@ -44,9 +44,6 @@ namespace GDS {
 		short           Acc_second;
 
 		std::vector<Element*> Contents;
-
-		std::vector<Element*> Referred_list;		//< Point to the AREF/SREF which use current structure as a reference;
-
 	public:
 		Structure();
 		Structure(std::string name);
@@ -56,7 +53,7 @@ namespace GDS {
 		size_t size();
 		Element* get(int index) const;
 		std::vector<Element*> getReferredList();
-		bool boundaryRect(int& x1, int& y1, int& x2, int& y2) const;
+		bool boundingRect(int& x1, int& y1, int& x2, int& y2) const;
 
 		void add(Element* e);
 		void set(int index, Element* e);

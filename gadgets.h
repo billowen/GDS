@@ -30,7 +30,6 @@ namespace GDS
 	class Element;
 	class Techfile;
 	
-	void buildCellLinks(Library* lib);
 	void collectLayers(Library*lib, Techfile* techfile);
 }
 
