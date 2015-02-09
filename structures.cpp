@@ -19,6 +19,7 @@
  * along with GDSII. If not, see <http://www.gnu.org/licenses/>.
  **/
 
+#include <iostream>
 #include <limits>
 #include <algorithm>
 #include <sstream>
@@ -78,14 +79,11 @@ namespace GDS
 
 	Structure::~Structure()
 	{
-		for (Element * &e : Contents)
-		{
-			if (e != nullptr)
-			{
-				delete e;
-				e = nullptr;
-			}
-		}
+        for (size_t i = 0; i < Contents.size(); i++)
+        {
+            if (Contents[i] != nullptr)
+                delete Contents[i];
+        }
 		Contents.clear();
 	}
 

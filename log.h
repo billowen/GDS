@@ -9,7 +9,7 @@ namespace GDS
     class LogIO
     {
         std::ofstream m_Out;
-        LogIO();
+        LogIO(){}
     public:
         static LogIO* getInstance();
         ~LogIO();
