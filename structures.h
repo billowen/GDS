@@ -57,9 +57,6 @@ namespace GDS {
 
 		void add(Element* e);
 		void set(int index, Element* e);
-		void addReferred(Element* referred);
-		void clearReferredList();
-		void delReferred(Element* referred);
 
 		bool read(std::ifstream &in);
 		bool write(std::ofstream &out);

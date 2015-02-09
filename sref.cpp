@@ -23,6 +23,7 @@
 #include "sref.h"
 #include "exceptions.h"
 #include <sstream>
+#include "log.h"
 #include "gdsio.h"
 #include "library.h"
 #include "structures.h"
@@ -107,6 +108,9 @@ namespace GDS
 
 	bool SRef::read(std::ifstream &in)
 	{
+#ifdef _DEBUG_LOG
+        LogIO* log = LogIO::getInstance();
+#endif
 		bool finished = false;
 		while (!finished)
 		{
@@ -116,6 +120,13 @@ namespace GDS
 			switch (record_type)
 			{
 			case ENDEL:
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				finished = true;
 				break;
 			case EFLAGS:
@@ -129,6 +140,13 @@ namespace GDS
 					throw FormatError(msg);
 				}
 				Eflags = readShort(in);
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << Eflags << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				break;
 			case SNAME:
 				if (record_size < 4 || record_size % 2 != 0)
@@ -141,6 +159,13 @@ namespace GDS
 					throw FormatError(msg);
 				}
 				SName = readString(in, record_size - 4);
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << SName << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				break;
 			case XY:
 				if (record_size != 12)
@@ -154,6 +179,13 @@ namespace GDS
 				}
 				X = readInteger(in);
 				Y = readInteger(in);
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << X << " " << Y << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				break;
 			case STRANS:
 				if (record_size != 6)
@@ -166,6 +198,13 @@ namespace GDS
 					throw FormatError(msg);
 				}
 				Strans = readShort(in);
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << Strans << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				break;
 			case MAG:
 				if (record_size != 12)
@@ -178,6 +217,13 @@ namespace GDS
 					throw FormatError(msg);
 				}
 				Mag = readDouble(in);
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << Mag << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				break;
 			case ANGLE:
 				if (record_size != 12)
@@ -190,6 +236,13 @@ namespace GDS
 					throw FormatError(msg);
 				}
 				Angle = readDouble(in);
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << Angle << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				break;
 			default:
 				break;

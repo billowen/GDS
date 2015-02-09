@@ -23,6 +23,7 @@
 #include <assert.h>
 #include "boundary.h"
 #include "exceptions.h"
+#include "log.h"
 #include <sstream>
 #include "gdsio.h"
 
@@ -64,7 +65,7 @@ namespace GDS
 		{
 			x1 = y1 = std::numeric_limits<int>::max();
 			x2 = y2 = std::numeric_limits<int>::min();
-			for (int i = 0; i < X.size(); i++)
+			for (size_t i = 0; i < X.size(); i++)
 			{
 				x1 = (X[i] < x1) ? X[i] : x1;
 				x2 = (X[i] > x2) ? X[i] : x2;
@@ -95,6 +96,9 @@ namespace GDS
 
 	bool Boundary::read(std::ifstream &in)
 	{
+#ifdef _DEBUG_LOG
+        LogIO* log = LogIO::getInstance();
+#endif
 		bool finished = false;
 		while (!finished)
 		{
@@ -104,6 +108,13 @@ namespace GDS
 			switch (record_type)
 			{
 			case ENDEL:
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				finished = true;
 				break;
 			case EFLAGS:
@@ -117,6 +128,13 @@ namespace GDS
 					throw FormatError(msg);
 				}
 				Eflags = readShort(in);
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << Eflags << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				break;
 			case LAYER:
 				if (record_size != 6)
@@ -129,6 +147,13 @@ namespace GDS
 					throw FormatError(msg);
 				}
 				Layer = readShort(in);
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << Layer << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				break;
 			case DATATYPE:
 				if (record_size != 6)
@@ -141,6 +166,13 @@ namespace GDS
 					throw FormatError(msg);
 				}
 				Data_type = readShort(in);
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << Data_type << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				break;
 			case XY:
 			{
@@ -162,6 +194,18 @@ namespace GDS
 					X.push_back(x);
 					Y.push_back(y);
 				}
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type;
+                    for (int i = 0; i < num; i++)
+                    {
+                        ss << " " << X[i] << " " << Y[i];
+                    }
+                    ss << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				break;
 			}
 			default:

@@ -74,9 +74,8 @@ namespace GDS {
 		 * Delete a structure in the library.
 		 *
 		 * \param [in] name			Name of structure.
-		 * \param [in] de_referred	Wether to delete the SREF/AREF or not.
 		 */
-		void del(std::string name, bool del_referred = false);
+		void del(std::string name);
 
 
 		/*!

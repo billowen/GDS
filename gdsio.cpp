@@ -20,14 +20,24 @@
  * along with GDSII. If not, see <http://www.gnu.org/licenses/>.
  **/
 
+#include <sstream>
+#include "log.h"
 #include "gdsio.h"
 
 
 short GDS::readShort(std::ifstream &in)
 {
+
     Byte buffer[2];
     in.read((char*)buffer, 2);
     short data = buffer[0] << 8 | buffer[1];
+
+#ifdef _DEBUG_LOG
+    LogIO* log = LogIO::getInstance();
+    log->write(byteToString(buffer[0]));
+    log->write(byteToString(buffer[1]));
+#endif
+
     return data;
 }
 
@@ -38,6 +48,12 @@ void GDS::writeShort(std::ofstream &out, short data)
     low = data & 0x00ff;
     out.write(&high, 1);
     out.write(&low, 1);
+
+#ifdef _DEBUG_LOG
+    LogIO* log = LogIO::getInstance();
+    log->write(byteToString(high));
+    log->write(byteToString(low));
+#endif
 }
 
 int GDS::readInteger(std::ifstream &in)
@@ -48,6 +64,14 @@ int GDS::readInteger(std::ifstream &in)
             + (buffer[2] << 8)
             + (buffer[1] << 16)
             + (buffer[0] << 24);
+
+#ifdef _DEBUG_LOG
+    LogIO* log = LogIO::getInstance();
+    for (int i = 0; i < 4; i++)
+    {
+        log->write(byteToString(buffer[i])); 
+    }
+#endif
     return data;
  }
 
@@ -59,16 +83,30 @@ void GDS::writeInteger(std::ofstream &out, int data)
     buffer[1] = (data >> 16) & 0xff;
     buffer[0] = (data >> 24) & 0xff;
     out.write((char *)buffer, 4);
+
+#ifdef _DEBUG_LOG
+    LogIO* log = LogIO::getInstance();
+    for (int i = 0; i < 4; i++)
+    {
+        log->write(byteToString(buffer[i])); 
+    }
+#endif
 }
 
 std::string GDS::readString(std::ifstream &in, int size)
 {
+#ifdef _DEBUG_LOG
+    LogIO* log = LogIO::getInstance();
+#endif
     std::string data;
     for (int i = 0; i < size; i++)
     {
         char c;
         in.read(&c, 1);
         data.push_back(c);
+#ifdef _DEBUG_LOG
+        log->write(byteToString(c));
+#endif
     }
     return data;
 }
@@ -76,10 +114,21 @@ std::string GDS::readString(std::ifstream &in, int size)
 void GDS::writeString(std::ofstream &out, std::string data)
 {
     out.write(data.c_str(), data.size());
+#ifdef _DEBUG_LOG
+    LogIO* log = LogIO::getInstance();
+    for (size_t i = 0; i < data.size(); i++)
+    {
+        log->write(byteToString(data[i]));
+    }
+#endif
+    
     if (data.size() % 2 != 0)
     {
         char c = '\0';
         out.write(&c, 1);
+#ifdef _DEBUG_LOG
+        log->write(byteToString(c));
+#endif
     }
 }
 
@@ -97,6 +146,15 @@ double GDS::readDouble(std::ifstream &in)
 {
     unsigned char buffer[8];
     in.read((char*)buffer, 8);
+
+#ifdef _DEBUG_LOG
+    LogIO* log = LogIO::getInstance();
+    for (int i = 0; i < 8; i++)
+    {
+        log->write(byteToString(buffer[i])); 
+    }
+#endif
+
     short sign_flag = (buffer[0] & 0x80) ? -1 : 1;
     short exponent = (buffer[0] & 0x7f) - 64;
     long long mantissa = 0;
@@ -169,16 +227,39 @@ void GDS::writeDouble(std::ofstream &out, double data)
         }
         out.write((char*)buffer, 8);
     }
+
+#ifdef _DEBUG_LOG
+    LogIO* log = LogIO::getInstance();
+    for (int i = 0; i < 8; i++)
+    {
+        log->write(byteToString(buffer[i])); 
+    }
+#endif
 }
 
 GDS::Byte GDS::readByte(std::ifstream &in)
 {
     Byte data;
     in.read((char*)&data, 1);
+#ifdef _DEBUG_LOG
+    LogIO* log = LogIO::getInstance();
+    log->write(byteToString(data));
+#endif
     return data;
 }
 
 void GDS::writeByte(std::ofstream &out, GDS::Byte data)
 {
+#ifdef _DEBUG_LOG
+    LogIO* log = LogIO::getInstance();
+    log->write(byteToString(data));
+#endif
     out.write((char*)&data, 1);
+}
+
+std::string GDS::byteToString(Byte data)
+{
+    std::stringstream ss;
+    ss << std::hex << data;
+    return ss.str();
 }

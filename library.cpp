@@ -26,6 +26,7 @@
 #include "gdsio.h"
 #include <sstream>
 #include <ctime>
+#include "log.h"
 #include "elements.h"
 #include "aref.h"
 #include "sref.h"
@@ -142,7 +143,7 @@ namespace GDS {
 		return nullptr;
 	}
 
-	void Library::del(std::string name, bool del_referred)
+	void Library::del(std::string name)
 	{
 		Structure* node = get(name);
 		if (node == nullptr)
@@ -156,15 +157,6 @@ namespace GDS {
 				continue;
 			if (node->name() == name)
 			{
-				if (del_referred)
-				{
-					std::vector<Element*> referred_list = node->getReferredList();
-					for (auto ptr : referred_list)
-					{
-						delete ptr;
-					}
-					node->clearReferredList();
-				}
 				delete node;
 				Contents.erase(Contents.begin() + i);
 				break;
@@ -198,6 +190,13 @@ namespace GDS {
 			throw FormatError(msg);
 		}
 		Version = readShort(in);
+
+#ifdef _DEBUG_LOG
+        LogIO* log = LogIO::getInstance();
+        std::stringstream ss;
+        ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << Version << std::endl;
+        log->write(ss.str());
+#endif
 
 		// read BGNLIB
 		record_size = readShort(in);
@@ -234,16 +233,35 @@ namespace GDS {
 		Acc_minute = readShort(in);
 		Acc_second = readShort(in);
 
+#ifdef _DEBUG_LOG
+        {
+            std::stringstream ss;
+            ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type;
+            ss << " " << Mod_year << " " << Mod_month << " " << Mod_day << " " << Mod_hour << " " << Mod_minute << " " << Mod_second;
+            ss << " " << Acc_year << " " << Acc_month << " " << Acc_day << " " << Acc_hour << " " << Acc_minute << " " << Acc_minute;
+            ss << std::endl;
+            log->write(ss.str());
+        }
+#endif
+
 		while (1)
 		{
 			record_size = readShort(in);
 			record_type = readByte(in);
 			data_type = readByte(in);
 
+
 			bool finished = false;
 			switch (record_type)
 			{
 			case ENDLIB:
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				finished = true;
 				break;
 			case LIBNAME:
@@ -257,6 +275,14 @@ namespace GDS {
 					throw FormatError(msg);
 				}
 				Lib_name = readString(in, record_size - 4);
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type;
+                    ss << " " << Lib_name << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				break;
 			case UNITS:
 				if (record_size != 20)
@@ -270,6 +296,15 @@ namespace GDS {
 				}
 				DBUnit_in_userunit = readDouble(in);
 				DBUnit_in_meter = readDouble(in);
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type;
+                    ss << " " << DBUnit_in_userunit << " " << DBUnit_in_meter << std::endl;
+                    log->write(ss.str());
+                }
+#endif
+
 				break;
 			case BGNSTR:
 			{
@@ -282,6 +317,14 @@ namespace GDS {
 					std::string msg = ss.str();
 					throw FormatError(msg);
 				}
+
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				Structure *node = new Structure();
 				node->read(in);
 				Contents.push_back(node);

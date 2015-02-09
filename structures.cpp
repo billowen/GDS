@@ -29,6 +29,7 @@
 #include "sref.h"
 #include "text.h"
 #include "exceptions.h"
+#include "log.h"
 #include "gdsio.h"
 #include <ctime>
 
@@ -153,6 +154,10 @@ namespace GDS
 
 	bool Structure::read(std::ifstream &in)
 	{
+#ifdef _DEBUG_LOG
+        LogIO* log = LogIO::getInstance();
+#endif
+
 		Mod_year = readShort(in);
 		Mod_month = readShort(in);
 		Mod_day = readShort(in);
@@ -165,6 +170,13 @@ namespace GDS
 		Acc_hour = readShort(in);
 		Acc_minute = readShort(in);
 		Acc_second = readShort(in);
+
+#ifdef _DEBUG_LOG
+        std::stringstream ss;
+        ss << " " << Mod_year << " " << Mod_month << " " << Mod_day << " " << Mod_hour << " " << Mod_minute << " " << Mod_second;
+        ss << " " << Acc_year << " " << Acc_month << " " << Acc_day << " " << Acc_hour << " " << Acc_minute << " " << Acc_minute;
+        ss << std::endl;
+#endif
 
 		bool finished = false;
 		while (!finished)
@@ -184,6 +196,13 @@ namespace GDS
 					std::string msg = ss.str();
 					throw FormatError(msg);
 				}
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				finished = true;
 				break;
 			case STRNAME:
@@ -197,6 +216,14 @@ namespace GDS
 					throw FormatError(msg);
 				}
 				Struct_name = readString(in, record_size - 4);
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type;
+                    ss << " " << Struct_name << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				break;
 			case TEXT:
 			{
@@ -209,6 +236,13 @@ namespace GDS
 					std::string msg = ss.str();
 					throw FormatError(msg);
 				}
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				Text *e = new Text(this);
 				e->read(in);
 				Contents.push_back(e);
@@ -225,6 +259,13 @@ namespace GDS
 					std::string msg = ss.str();
 					throw FormatError(msg);
 				}
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				Boundary *e = new Boundary(this);
 				e->read(in);
 				Contents.push_back(e);
@@ -241,6 +282,13 @@ namespace GDS
 					std::string msg = ss.str();
 					throw FormatError(msg);
 				}
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				Path *e = new Path(this);
 				e->read(in);
 				Contents.push_back(e);
@@ -257,6 +305,13 @@ namespace GDS
 					std::string msg = ss.str();
 					throw FormatError(msg);
 				}
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				SRef *e = new SRef(this);
 				e->read(in);
 				Contents.push_back(e);
@@ -273,6 +328,13 @@ namespace GDS
 					std::string msg = ss.str();
 					throw FormatError(msg);
 				}
+#ifdef _DEBUG_LOG
+                {
+                    std::stringstream ss;
+                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << std::endl;
+                    log->write(ss.str());
+                }
+#endif
 				ARef *e = new ARef(this);
 				e->read(in);
 				Contents.push_back(e);

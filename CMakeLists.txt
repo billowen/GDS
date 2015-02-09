@@ -2,6 +2,7 @@ cmake_minimum_required (VERSION 3.0)
 
 SET (CMAKE_EXPORT_COMPILE_COMMANDS 1)
 add_definitions(-std=c++11)
+add_definitions(-D_DEBUG_LOG)
 
 
 project (GDS)
@@ -29,6 +30,7 @@ add_library (libGDS
     tags.h
 	gadgets.cpp gadgets.h
     techfile.cpp techfile.h
+    log.cpp log.h
 )
 
 target_include_directories(libGDS PUBLIC ${CMAKE_SOURCE_DIR})

@@ -23,6 +23,7 @@
 #ifndef GDSIO_H
 #define GDSIO_H
 #include <fstream>
+#include <string>
 #include "tags.h"
 
 namespace GDS {
@@ -52,6 +53,7 @@ void writeDouble(std::ofstream &out, double data);
 void writeString(std::ofstream &out, std::string data);
 void writeBitarray(std::ofstream &out, short data);
 
+std::string byteToString(Byte data);
 
 
 }
