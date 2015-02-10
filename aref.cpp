@@ -19,6 +19,7 @@
  * along with GDSII. If not, see <http://www.gnu.org/licenses/>.
  **/
 
+#include <limits>
 #include <assert.h>
 #include "aref.h"
 #include "log.h"
@@ -88,8 +89,20 @@ namespace GDS
         Structure* reference = lib->get(structName());
         if (reference == nullptr)
             return false;
+
+        x1 = std::numeric_limits<int>::max();
+        y1 = std::numeric_limits<int>::max();
+        x2 = std::numeric_limits<int>::min();
+        y2 = std::numeric_limits<int>::min();
+        for (int i = 0; i < 3; i++)
+        {
+            x1 = X[i] < x1 ? X[i] : x1;
+            y1 = Y[i] < y1 ? Y[i] : y1;
+            x2 = X[i] > x2 ? X[i] : x2;
+            y2 = Y[i] > y2 ? Y[i] : y2;
+        }
         
-        return reference->boundingRect(x1, y1, x2, y2);
+        return true;
 	}
 
 	void ARef::setStructName(std::string name)
