@@ -39,12 +39,21 @@ FormatError::~FormatError()
 
 }
 
+#ifdef _WIN32
+const char* FormatError::what() const 
+{
+	std::string ret = "Format error: " + Message;
+
+	return ret.c_str();
+}
+#else
 const char* FormatError::what() const noexcept
 {
 	std::string ret = "Format error: " + Message;
 
 	return ret.c_str();
 }
+#endif
 
 void FormatError::setMessage(std::string message)
 {

@@ -35,7 +35,11 @@ public:
     FormatError(std::string message);
     virtual ~FormatError();
 
-    virtual const char *what() const noexcept;
+#ifdef _WIN32
+	virtual const char *what() const;
+#else
+	virtual const char *what() const noexcept;
+#endif
     void setMessage(std::string message);
 };
 }
