@@ -59,6 +59,7 @@ namespace GDS {
 		double angle() const;
 		double mag() const;
 		short strans() const;
+		bool stransFlag(STRANS_FLAG flag) const;
 		virtual bool boundingRect(int& x1, int& y1, int& x2, int& y2) const;
 
 		void setStructName(std::string name);
@@ -67,6 +68,7 @@ namespace GDS {
 		void setAngle(double angle);
 		void setMag(double mag);
 		void setStrans(short strans);
+		void setStrans(STRANS_FLAG flag, bool enable = true);
 
 		virtual bool read(std::ifstream &in);
 		virtual bool write(std::ofstream &out);

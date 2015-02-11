@@ -28,6 +28,13 @@ namespace GDS {
 
 typedef unsigned char Byte;
 
+enum STRANS_FLAG
+{
+	REFLECTION = 0x8000,
+	ABS_MAG    = 0x0004,
+	ABS_ANGLE  = 0x0002,
+};
+
 enum Record_type : Byte
 {
     HEADER       = 0x00,

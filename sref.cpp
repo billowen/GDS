@@ -70,14 +70,19 @@ namespace GDS
 		return Strans;
 	}
 
+	bool SRef::stransFlag(STRANS_FLAG flag) const
+	{
+		return Strans & flag;
+	}
+
 	bool SRef::boundaryRect(int& x1, int& y1, int& x2, int& y2) const
 	{
-        Library* lib = Library::getInstance();
-        Structure* reference = lib->get(structName());
-        if (reference == nullptr)
-            return false;
+		Library* lib = Library::getInstance();
+		Structure* reference = lib->get(structName());
+		if (reference == nullptr)
+			return false;
 
-        return reference->boundingRect(x1, y1, x2, y2);
+		return reference->boundingRect(x1, y1, x2, y2);
 	}
 
 	void SRef::setStructName(std::string name)
@@ -106,10 +111,15 @@ namespace GDS
 		Strans = strans;
 	}
 
+	void SRef::setStrans(STRANS_FLAG flag, bool enable)
+	{
+		Strans = enable ? (Strans | flag) : (Strans & (~flag));
+	}
+
 	bool SRef::read(std::ifstream &in)
 	{
 #ifdef _DEBUG_LOG
-        LogIO* log = LogIO::getInstance();
+		LogIO* log = LogIO::getInstance();
 #endif
 		bool finished = false;
 		while (!finished)
@@ -121,11 +131,11 @@ namespace GDS
 			{
 			case ENDEL:
 #ifdef _DEBUG_LOG
-                {
-                    std::stringstream ss;
-                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << std::endl;
-                    log->write(ss.str());
-                }
+				{
+					std::stringstream ss;
+					ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << std::endl;
+					log->write(ss.str());
+				}
 #endif
 				finished = true;
 				break;
@@ -141,11 +151,11 @@ namespace GDS
 				}
 				Eflags = readShort(in);
 #ifdef _DEBUG_LOG
-                {
-                    std::stringstream ss;
-                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << Eflags << std::endl;
-                    log->write(ss.str());
-                }
+				{
+					std::stringstream ss;
+					ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << Eflags << std::endl;
+					log->write(ss.str());
+				}
 #endif
 				break;
 			case SNAME:
@@ -160,11 +170,11 @@ namespace GDS
 				}
 				SName = readString(in, record_size - 4);
 #ifdef _DEBUG_LOG
-                {
-                    std::stringstream ss;
-                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << SName << std::endl;
-                    log->write(ss.str());
-                }
+				{
+					std::stringstream ss;
+					ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << SName << std::endl;
+					log->write(ss.str());
+				}
 #endif
 				break;
 			case XY:
@@ -180,11 +190,11 @@ namespace GDS
 				X = readInteger(in);
 				Y = readInteger(in);
 #ifdef _DEBUG_LOG
-                {
-                    std::stringstream ss;
-                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << X << " " << Y << std::endl;
-                    log->write(ss.str());
-                }
+				{
+					std::stringstream ss;
+					ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << X << " " << Y << std::endl;
+					log->write(ss.str());
+				}
 #endif
 				break;
 			case STRANS:
@@ -199,11 +209,11 @@ namespace GDS
 				}
 				Strans = readShort(in);
 #ifdef _DEBUG_LOG
-                {
-                    std::stringstream ss;
-                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << Strans << std::endl;
-                    log->write(ss.str());
-                }
+				{
+					std::stringstream ss;
+					ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << Strans << std::endl;
+					log->write(ss.str());
+				}
 #endif
 				break;
 			case MAG:
@@ -218,11 +228,11 @@ namespace GDS
 				}
 				Mag = readDouble(in);
 #ifdef _DEBUG_LOG
-                {
-                    std::stringstream ss;
-                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << Mag << std::endl;
-                    log->write(ss.str());
-                }
+				{
+					std::stringstream ss;
+					ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << Mag << std::endl;
+					log->write(ss.str());
+				}
 #endif
 				break;
 			case ANGLE:
@@ -237,11 +247,11 @@ namespace GDS
 				}
 				Angle = readDouble(in);
 #ifdef _DEBUG_LOG
-                {
-                    std::stringstream ss;
-                    ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << Angle << std::endl;
-                    log->write(ss.str());
-                }
+				{
+					std::stringstream ss;
+					ss << std::dec << " " << record_size << " " << Record_name[record_type] << " " << data_type << " " << Angle << std::endl;
+					log->write(ss.str());
+				}
 #endif
 				break;
 			default:

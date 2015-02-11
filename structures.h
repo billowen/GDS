@@ -52,7 +52,6 @@ namespace GDS {
 		std::string name() const;
 		size_t size();
 		Element* get(int index) const;
-		std::vector<Element*> getReferredList();
 		bool boundingRect(int& x1, int& y1, int& x2, int& y2) const;
 
 		void add(Element* e);
