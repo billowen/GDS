@@ -4,11 +4,13 @@ SET (CMAKE_EXPORT_COMPILE_COMMANDS 1)
 add_definitions(-std=c++11)
 
 option(PRINT_LOG "Allow the lib to print log information or not." OFF)
+option(BUILD_TEST "Whether to build the test exectable or not." OFF)
 
 if (PRINT_LOG)
     add_definitions(-D_DEBUG_LOG)
 else ()
 endif()
+    
 
 
 
@@ -40,10 +42,15 @@ add_library (libGDS
     log.cpp log.h
 )
 
-add_executable(testGDS main.cpp)
+
 
 target_include_directories(libGDS PUBLIC ${CMAKE_SOURCE_DIR})
-target_link_libraries(testGDS libGDS)
+
+if (BUILD_TEST)
+    add_executable(testGDS main.cpp)
+    target_link_libraries(testGDS libGDS)
+else()
+endif()
 
 
 
