@@ -41,13 +41,6 @@ namespace GDS {
 		Record_type tag() const;
 		std::string type() const;
 		Structure* parent();
-		/*!
-		 * Get a rect which can enclose the element.
-		 *
-		 * \param [out] x1,y1,x2,y2	
-		 * \return		Return false if can not get a valid rect.
-		 */
-		virtual bool boundingRect(int& x1, int& y1, int& x2, int& y2) const;
 
 		void setParent(Structure* parent);
 

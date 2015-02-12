@@ -75,16 +75,6 @@ namespace GDS
 		return Strans & flag;
 	}
 
-	bool SRef::boundaryRect(int& x1, int& y1, int& x2, int& y2) const
-	{
-		Library* lib = Library::getInstance();
-		Structure* reference = lib->get(structName());
-		if (reference == nullptr)
-			return false;
-
-		return reference->boundingRect(x1, y1, x2, y2);
-	}
-
 	void SRef::setStructName(std::string name)
 	{
 		SName = name;

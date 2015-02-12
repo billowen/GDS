@@ -60,7 +60,6 @@ namespace GDS {
 		double mag() const;
 		short strans() const;
 		bool stransFlag(STRANS_FLAG flag) const;
-		virtual bool boundingRect(int& x1, int& y1, int& x2, int& y2) const;
 
 		void setStructName(std::string name);
 		void setRowCol(int row,  int col);

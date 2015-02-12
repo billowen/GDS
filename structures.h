@@ -52,7 +52,6 @@ namespace GDS {
 		std::string name() const;
 		size_t size();
 		Element* get(int index) const;
-		bool boundingRect(int& x1, int& y1, int& x2, int& y2) const;
 
 		void add(Element* e);
 		void set(int index, Element* e);

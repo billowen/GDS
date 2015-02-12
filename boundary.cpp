@@ -58,26 +58,6 @@ namespace GDS
 		y = Y;
 	}
 
-	bool Boundary::boundingRect(int& x1, int& y1, int& x2, int& y2) const
-	{
-		assert(X.size() > 3 && X.size() == Y.size());
-		if (X.size() > 3 && X.size() == Y.size())
-		{
-			x1 = y1 = std::numeric_limits<int>::max();
-			x2 = y2 = std::numeric_limits<int>::min();
-			for (size_t i = 0; i < X.size(); i++)
-			{
-				x1 = (X[i] < x1) ? X[i] : x1;
-				x2 = (X[i] > x2) ? X[i] : x2;
-				y1 = (Y[i] < y1) ? Y[i] : y1;
-				y2 = (Y[i] > y2) ? Y[i] : y2;
-			}
-			return true;
-		}
-		else
-			return false;
-	}
-
 	void Boundary::setLayer(short layer)
 	{
 		Layer = layer;

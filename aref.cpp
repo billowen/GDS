@@ -88,28 +88,6 @@ namespace GDS
 		return Strans & flag;
 	}
 
-	bool ARef::boundingRect(int& x1, int& y1, int& x2, int& y2) const
-	{
-		Library* lib = Library::getInstance();
-		Structure* reference = lib->get(structName());
-		if (reference == nullptr)
-			return false;
-
-		x1 = std::numeric_limits<int>::max();
-		y1 = std::numeric_limits<int>::max();
-		x2 = std::numeric_limits<int>::min();
-		y2 = std::numeric_limits<int>::min();
-		for (int i = 0; i < 3; i++)
-		{
-			x1 = X[i] < x1 ? X[i] : x1;
-			y1 = Y[i] < y1 ? Y[i] : y1;
-			x2 = X[i] > x2 ? X[i] : x2;
-			y2 = Y[i] > y2 ? Y[i] : y2;
-		}
-		
-		return true;
-	}
-
 	void ARef::setStructName(std::string name)
 	{
 		SName = name;

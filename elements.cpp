@@ -76,11 +76,6 @@ namespace GDS
 		Parent = parent;
 	}
 
-	bool Element::boundingRect(int& x1, int& y1, int& x2, int& y2) const
-	{
-		return false;
-	}
-
 	void Element::setTag(Record_type tag)
 	{
 		Tag = tag;

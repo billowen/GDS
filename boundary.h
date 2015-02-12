@@ -50,7 +50,6 @@ namespace GDS {
 		short layer() const;
 		short dataType() const;
 		void xy(std::vector<int> &x, std::vector<int> &y)const;
-		virtual bool boundingRect(int& x1, int& y1, int& x2, int& y2) const;
 
 		void setLayer(short layer);
 		void setDataType(short data_type);
